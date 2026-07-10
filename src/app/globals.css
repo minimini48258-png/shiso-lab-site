@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0a0c0e;
+  --surface: #14171a;
+  --border: rgba(255, 255, 255, 0.09);
+  --text-heading: #f2f5f6;
+  --text-body: #e7ecee;
+  --text-muted: #9aa4a9;
+  --text-faint: #7c868d;
+
+  --blue-bright: #3e8dc4;
+  --blue-deep: #1f5e8c;
+  --orange: #e8842b;
+  --green: #4ade80;
+  --pink: #e878ac;
+
+  --font-sans: var(--font-noto-sans-jp), "Hiragino Sans", "Meiryo", sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-body);
+  background-color: var(--bg);
+  background-image: radial-gradient(1100px 620px at 12% -8%, rgba(62, 141, 196, 0.16), transparent 60%),
+    radial-gradient(900px 520px at 100% 22%, rgba(232, 132, 43, 0.1), transparent 60%),
+    radial-gradient(1000px 700px at 45% 118%, rgba(74, 222, 128, 0.08), transparent 60%),
+    url("/assets/facet-bg.svg");
+  background-size: auto, auto, auto, cover;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: 0 0, 0 0, 0 0, center;
+  background-attachment: fixed, fixed, fixed, fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--blue-bright);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--orange);
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.card-dark {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.grid-auto {
+  display: grid;
+  gap: 22px;
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 18px;
+  }
+}
