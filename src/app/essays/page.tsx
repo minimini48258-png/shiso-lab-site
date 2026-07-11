@@ -1,5 +1,3 @@
-import PlaceholderImage from "@/components/PlaceholderImage";
-
 const ESSAYS = [
   { tag: "マルチスピーシーズ", color: "#4ade80", title: "多生命的ウェルビーイング（Multi-species Wellbeing）のために（社会編）", date: "2025.08", url: "https://note.com/tackmetakumi" },
   { tag: "マルチスピーシーズ", color: "#4ade80", title: "多生命的ウェルビーイング（Multi-species Wellbeing）のために（個人編）", date: "2025.07", url: "https://note.com/tackmetakumi" },
@@ -13,7 +11,11 @@ export default function EssaysPage() {
   return (
     <div>
       <div style={{ position: "relative", height: 280, overflow: "hidden" }}>
-        <PlaceholderImage label="地図とノートの並ぶ机" seed={1} style={{ width: "100%", height: "100%" }} />
+        <img
+          src="/assets/desk-maps-notebook.jpg"
+          alt="地図とノートの並ぶ机"
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", filter: "saturate(.85) brightness(.75)" }}
+        />
         <div
           style={{
             position: "absolute",

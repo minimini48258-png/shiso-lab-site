@@ -1,5 +1,4 @@
 import Link from "next/link";
-import PlaceholderImage from "@/components/PlaceholderImage";
 
 const VALUES = [
   { num: "①", title: "思想とデータの往復", desc: "哲学的な問いと実証データを行き来しながら地域を捉えます。" },
@@ -11,21 +10,24 @@ const FEATURES = [
   {
     kicker: "内発的発展度",
     color: "#5aa9e6",
-    seed: 0,
+    image: "/assets/community-field-work.jpg",
+    alt: "地域の人々の協働作業",
     title: "外部依存から自律へ ― 地域内経済循環を読む",
     desc: "外部依存度・地域内経済循環・関係人口から「自律性」を可視化。",
   },
   {
     kicker: "見えない社会的コスト",
     color: "#e878ac",
-    seed: 1,
+    image: "/assets/harvest-terrace.jpg",
+    alt: "稲刈りをする人々",
     title: "高齢化・医療アクセス・遊休農地を金額換算する",
     desc: "見えにくい社会的コストを推計し、政策判断の土台にする試み。",
   },
   {
     kicker: "関係人口・移住トレンド",
     color: "#4ade80",
-    seed: 2,
+    image: "/assets/aerial-town-view.jpg",
+    alt: "町の空撮",
     title: "暮らしの質と、地域とのつながり方の変化",
     desc: "関係人口・移住トレンドから見える、新しい地域との関わり方。",
   },
@@ -36,10 +38,10 @@ export default function TopPage() {
     <div>
       {/* hero */}
       <div style={{ position: "relative", height: "min(72vh, 620px)", overflow: "hidden" }}>
-        <PlaceholderImage
-          label="ドーナツ経済の光の輪が里山にかかるイメージ"
-          seed={0}
-          style={{ width: "100%", height: "100%" }}
+        <img
+          src="/assets/donut-rings-aerial.jpg"
+          alt="ドーナツ経済の光の輪が里山にかかるイメージ"
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", filter: "saturate(.85) brightness(.8)" }}
         />
         <div
           style={{
@@ -115,14 +117,17 @@ export default function TopPage() {
             </b>
             というビジョンのもと、環境の天井と社会の土台のあいだで地域を捉える「ドーナツ経済学」を分析のベースに用いています。
           </p>
-          <PlaceholderImage
-            label="地域の人々による野良仕事の風景"
-            seed={1}
+          <img
+            src="/assets/community-field-work.jpg"
+            alt="地域の人々による野良仕事の風景"
             style={{
               width: "100%",
               height: "100%",
               minHeight: 180,
+              objectFit: "cover",
+              display: "block",
               borderRadius: "0 16px 16px 0",
+              filter: "saturate(.9) brightness(.85)",
             }}
           />
         </div>
@@ -203,7 +208,11 @@ export default function TopPage() {
               className="card-dark"
               style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}
             >
-              <PlaceholderImage label={f.kicker} seed={f.seed} style={{ width: "100%", height: 150 }} />
+              <img
+                src={f.image}
+                alt={f.alt}
+                style={{ width: "100%", height: 150, objectFit: "cover", display: "block", filter: "saturate(.9) brightness(.85)" }}
+              />
               <div style={{ padding: "18px 20px 22px" }}>
                 <div
                   className="mono"
@@ -229,7 +238,11 @@ export default function TopPage() {
           className="card-dark"
           style={{ display: "grid", gridTemplateColumns: "220px 1fr", overflow: "hidden", width: "100%" }}
         >
-          <PlaceholderImage label="地図とノートの並ぶ机" seed={1} style={{ width: "100%", height: "100%", minHeight: 140 }} />
+          <img
+            src="/assets/desk-maps-notebook.jpg"
+            alt="地図とノートの並ぶ机"
+            style={{ width: "100%", height: "100%", minHeight: 140, objectFit: "cover", display: "block", filter: "saturate(.9) brightness(.8)" }}
+          />
           <div style={{ padding: "22px 26px" }}>
             <div className="mono" style={{ fontSize: 10, letterSpacing: ".08em", color: "var(--orange)", fontWeight: 600, marginBottom: 8 }}>
               ESSAY
