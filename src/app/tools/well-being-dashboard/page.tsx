@@ -5,7 +5,7 @@ import DonutRingChart from "@/components/dashboard/DonutRingChart";
 import MetricPanel from "@/components/dashboard/MetricPanel";
 import ScoreOverview from "@/components/dashboard/ScoreOverview";
 
-export default function SakuhoDashboardPage() {
+export default function WellBeingDashboardPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   return (
@@ -15,14 +15,13 @@ export default function SakuhoDashboardPage() {
           <div>
             <h1 className="text-xl font-bold flex items-center gap-2" style={{ color: "#111" }}>
               <span>🏔️</span>
-              <span>佐久穂町 地域ウェルビーイングダッシュボード</span>
+              <span>地域ウェルビーイングダッシュボード</span>
             </h1>
             <p className="text-sm mt-0.5" style={{ color: "#6b7280" }}>
               地域版ドーナツ経済モデルによる持続可能性の可視化
             </p>
           </div>
           <div className="flex items-center gap-2 text-sm flex-wrap" style={{ color: "#6b7280" }}>
-            <span className="rounded-full px-3 py-1" style={{ background: "#f3f4f6" }}>長野県佐久穂町</span>
             <span className="rounded-full px-3 py-1" style={{ background: "#f3f4f6" }}>2023–24年データ</span>
           </div>
         </div>
@@ -58,7 +57,7 @@ export default function SakuhoDashboardPage() {
             公式の行政データとは異なる場合があります。
           </p>
           <p>
-            スコアは各指標を0〜100に正規化した相対値です。指標の定義・算定方法は今後、佐久穂町役場との協議により改定される予定です。
+            スコアは各指標を0〜100に正規化した相対値です。指標の定義・算定方法は今後、自治体との協議により改定される予定です。
           </p>
         </div>
       </main>

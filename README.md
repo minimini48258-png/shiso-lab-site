@@ -6,13 +6,13 @@
 
 - Next.js (App Router) + TypeScript + Tailwind CSS v4
 - `output: 'export'` による静的書き出し（chips.jp / ロリポップ共有サーバーへの配置を想定）
-- データ可視化: Recharts（`/tools/sakuho-dashboard`）
+- データ可視化: Recharts（`/tools/well-being-dashboard`）
 
 ## ページ構成
 
 - `/` トップ
 - `/tools/` データ分析ツール一覧
-  - `/tools/sakuho-dashboard/` 佐久穂町 地域ウェルビーイングダッシュボード（Next.jsページとして統合）
+  - `/tools/well-being-dashboard/` 地域ウェルビーイングダッシュボード（Next.jsページとして統合）
   - `/tools/fit-map/` 長野県FIT認定設備マップ（静的HTML/JS/Leafletをそのまま `public/` に同梱）
 - `/essays/` 論考・エッセイ（note記事への外部リンク集）
 - `/contact/` 問い合わせ

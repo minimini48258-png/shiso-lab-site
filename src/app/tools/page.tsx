@@ -2,13 +2,13 @@ import Link from "next/link";
 
 const TOOLS = [
   {
-    name: "佐久穂町 地域ウェルビーイングダッシュボード",
+    name: "地域ウェルビーイングダッシュボード",
     category: "GIS / 可視化",
     color: "#5aa9e6",
     iconBg: "rgba(62,141,196,.16)",
     desc: "地域版ドーナツ経済モデルにより、環境・経済・社会指標を可視化。",
     status: "公開中",
-    href: "/tools/sakuho-dashboard/",
+    href: "/tools/well-being-dashboard/",
     external: false,
   },
   {
