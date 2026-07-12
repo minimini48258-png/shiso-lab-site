@@ -40,10 +40,13 @@ export default function Nav() {
           href="/"
           style={{ display: "flex", alignItems: "center", gap: 9 }}
         >
-          <svg width="24" height="24" viewBox="0 0 22 22" style={{ flex: "none" }}>
-            <circle cx="11" cy="11" r="9" fill="none" stroke="var(--blue-bright)" strokeWidth="2" />
-            <circle cx="11" cy="11" r="3.4" fill="var(--orange)" />
-          </svg>
+          <img
+            src="/assets/logo/mark-black-bg.png"
+            alt="思想とデータ研究所"
+            width={28}
+            height={28}
+            style={{ flex: "none", borderRadius: 6, display: "block" }}
+          />
           <span
             style={{
               fontSize: 15,

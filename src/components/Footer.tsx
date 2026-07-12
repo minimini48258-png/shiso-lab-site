@@ -13,8 +13,17 @@ export default function Footer() {
           gap: 12,
         }}
       >
-        <div className="mono" style={{ fontSize: 11, color: "#5f676d" }}>
-          © 思想とデータ研究所
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <img
+            src="/assets/logo/mark-black-bg.png"
+            alt=""
+            width={18}
+            height={18}
+            style={{ borderRadius: 4, display: "block", opacity: 0.85 }}
+          />
+          <div className="mono" style={{ fontSize: 11, color: "#5f676d" }}>
+            © 思想とデータ研究所
+          </div>
         </div>
         <div style={{ display: "flex", gap: 20 }}>
           <Link href="/tools/" style={{ fontSize: 12, color: "#7c868d" }}>
