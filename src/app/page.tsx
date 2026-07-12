@@ -1,10 +1,5 @@
 import Link from "next/link";
-
-const VALUES = [
-  { num: "①", title: "思想とデータの往復", desc: "哲学的な問いと実証データを行き来しながら地域を捉えます。" },
-  { num: "②", title: "内発的発展の重視", desc: "外部からの解決策ではなく、地域が自ら育つ力に着目します。" },
-  { num: "③", title: "公開性と検証可能性", desc: "出典を明示し、行政資料としても引用できる正確さを保ちます。" },
-];
+import { getSiteSettings } from "@/lib/site-settings";
 
 const FEATURES = [
   {
@@ -33,7 +28,14 @@ const FEATURES = [
   },
 ];
 
-export default function TopPage() {
+export default async function TopPage() {
+  const settings = await getSiteSettings();
+  const values = [
+    { num: "①", title: settings.value_1_title, desc: settings.value_1_desc },
+    { num: "②", title: settings.value_2_title, desc: settings.value_2_desc },
+    { num: "③", title: settings.value_3_title, desc: settings.value_3_desc },
+  ];
+
   return (
     <div>
       {/* hero */}
@@ -72,9 +74,8 @@ export default function TopPage() {
               fontWeight: 700,
               maxWidth: "20ch",
             }}
-          >
-            人の営みが、自然と地域を内側から再生していく社会へ。
-          </h1>
+            dangerouslySetInnerHTML={{ __html: settings.hero_title }}
+          />
           <p
             style={{
               margin: 0,
@@ -84,9 +85,8 @@ export default function TopPage() {
               fontWeight: 400,
               maxWidth: "56ch",
             }}
-          >
-            思想とデータ研究所は、地域の持続可能性を哲学と実証データの両面から見つめ直す研究所です。特定の事業の宣伝ではなく、地域そのものの「あり方」を問い直します。
-          </p>
+            dangerouslySetInnerHTML={{ __html: settings.hero_body }}
+          />
         </div>
       </div>
 
@@ -110,13 +110,8 @@ export default function TopPage() {
               margin: 0,
               padding: "28px 0 28px 28px",
             }}
-          >
-            私たちは、地域の持続可能性を「思想」と「データ」の両輪で探究する研究所です。特定の事業を推進する立場ではなく、
-            <b style={{ color: "var(--blue-bright)" }}>
-              人の営みが自然と地域の再生につながり、内発的に発展していく社会
-            </b>
-            というビジョンのもと、環境の天井と社会の土台のあいだで地域を捉える「ドーナツ経済学」を分析のベースに用いています。
-          </p>
+            dangerouslySetInnerHTML={{ __html: settings.about_body }}
+          />
           <img
             src="/assets/community-field-work.jpg"
             alt="地域の人々による野良仕事の風景"
@@ -137,7 +132,7 @@ export default function TopPage() {
       <div className="wrap" style={{ padding: "52px 32px 12px" }}>
         <SectionHeading color="var(--orange)" title="私たちが大切にしていること" />
         <div className="grid-auto" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
-          {VALUES.map((v) => (
+          {values.map((v) => (
             <div key={v.num} className="card-dark" style={{ display: "flex", gap: 14, padding: "18px 20px" }}>
               <div className="mono" style={{ fontSize: 12, fontWeight: 700, color: "var(--orange)", flex: "none" }}>
                 {v.num}
