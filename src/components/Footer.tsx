@@ -20,6 +20,9 @@ export default function Footer() {
           <Link href="/tools/" style={{ fontSize: 12, color: "#7c868d" }}>
             分析ツール
           </Link>
+          <Link href="/news/" style={{ fontSize: 12, color: "#7c868d" }}>
+            お知らせ
+          </Link>
           <Link href="/essays/" style={{ fontSize: 12, color: "#7c868d" }}>
             論考
           </Link>

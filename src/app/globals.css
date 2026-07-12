@@ -80,3 +80,46 @@ a:hover {
     padding: 0 18px;
   }
 }
+
+.notion-body h1,
+.notion-body h2,
+.notion-body h3 {
+  color: var(--text-heading);
+  margin: 1.6em 0 0.6em;
+  line-height: 1.5;
+}
+
+.notion-body p {
+  margin: 0 0 1.2em;
+}
+
+.notion-body a {
+  text-decoration: underline;
+}
+
+.notion-body ul,
+.notion-body ol {
+  margin: 0 0 1.2em;
+  padding-left: 1.4em;
+}
+
+.notion-body img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 1em 0;
+}
+
+.notion-body code {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.notion-body blockquote {
+  border-left: 3px solid var(--border);
+  margin: 0 0 1.2em;
+  padding-left: 1em;
+  color: var(--text-muted);
+}

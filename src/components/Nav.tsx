@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const LINKS = [
   { href: "/", label: "トップ" },
   { href: "/tools/", label: "データ分析ツール" },
+  { href: "/news/", label: "お知らせ" },
   { href: "/essays/", label: "論考" },
   { href: "/contact/", label: "問い合わせ" },
 ];
