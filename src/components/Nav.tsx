@@ -38,9 +38,9 @@ export default function Nav() {
       >
         <Link href="/" style={{ display: "flex", alignItems: "center", flex: "none" }}>
           <img
-            src="/assets/logo/logo-black-bg-bold.png"
+            src="/assets/logo/logo-transparent-bold-white-text.png"
             alt="思想とデータ研究所"
-            style={{ height: 56, width: "auto", display: "block", borderRadius: 6 }}
+            style={{ height: 56, width: "auto", display: "block" }}
           />
         </Link>
         <div style={{ display: "flex", alignItems: "center", gap: 28, overflowX: "auto" }}>
