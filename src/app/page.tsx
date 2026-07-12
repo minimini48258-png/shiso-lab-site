@@ -55,9 +55,9 @@ export default async function TopPage() {
         />
         <div className="wrap" style={{ position: "absolute", left: 0, right: 0, bottom: 56, color: "#fff" }}>
           <img
-            src="/assets/logo/logo-black-bg.png"
+            src="/assets/logo/logo-transparent.png"
             alt="思想とデータ研究所"
-            style={{ width: "min(280px, 60vw)", height: "auto", display: "block", marginBottom: 20, borderRadius: 8 }}
+            style={{ width: "min(280px, 60vw)", height: "auto", display: "block", marginBottom: 20 }}
           />
           <div
             className="mono"

@@ -32,32 +32,16 @@ export default function Nav() {
           alignItems: "center",
           justifyContent: "space-between",
           gap: 20,
-          paddingTop: 16,
-          paddingBottom: 16,
+          paddingTop: 10,
+          paddingBottom: 10,
         }}
       >
-        <Link
-          href="/"
-          style={{ display: "flex", alignItems: "center", gap: 9 }}
-        >
+        <Link href="/" style={{ display: "flex", alignItems: "center", flex: "none" }}>
           <img
-            src="/assets/logo/mark-black-bg.png"
+            src="/assets/logo/logo-black-bg.png"
             alt="思想とデータ研究所"
-            width={28}
-            height={28}
-            style={{ flex: "none", borderRadius: 6, display: "block" }}
+            style={{ height: 56, width: "auto", display: "block", borderRadius: 6 }}
           />
-          <span
-            style={{
-              fontSize: 15,
-              fontWeight: 700,
-              letterSpacing: ".02em",
-              color: "#f2f5f6",
-              lineHeight: 1,
-            }}
-          >
-            思想とデータ研究所
-          </span>
         </Link>
         <div style={{ display: "flex", alignItems: "center", gap: 28, overflowX: "auto" }}>
           {LINKS.map((link) => {
