@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP, IBM_Plex_Mono } from "next/font/google";
+import Script from "next/script";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import "./globals.css";
+
+const GA_MEASUREMENT_ID = "G-F99R81Y9X6";
 
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
@@ -30,6 +33,18 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${notoSansJP.variable} ${plexMono.variable}`}>
       <body style={{ minHeight: "100vh" }}>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         <Nav />
         {children}
         <Footer />
