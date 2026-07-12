@@ -64,7 +64,7 @@ class Uploader:
                     self.ftp.storbinary(f"STOR {remote_path}", f)
                 print(f"uploaded: {remote_path}")
                 return
-            except (ftplib.all_errors, OSError, EOFError) as e:
+            except (*ftplib.all_errors, OSError, EOFError) as e:
                 last_error = e
                 print(f"retry {attempt}/{MAX_RETRIES} for {remote_path}: {e}")
                 try:
