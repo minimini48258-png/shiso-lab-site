@@ -38,7 +38,7 @@ export default function Nav() {
       >
         <Link href="/" style={{ display: "flex", alignItems: "center", flex: "none" }}>
           <img
-            src="/assets/logo/logo-black-bg.png"
+            src="/assets/logo/logo-black-bg-bold.png"
             alt="思想とデータ研究所"
             style={{ height: 56, width: "auto", display: "block", borderRadius: 6 }}
           />

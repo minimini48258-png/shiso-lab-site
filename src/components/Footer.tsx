@@ -15,7 +15,7 @@ export default function Footer() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <img
-            src="/assets/logo/mark-black-bg.png"
+            src="/assets/logo/mark-black-bg-bold.png"
             alt=""
             width={18}
             height={18}
