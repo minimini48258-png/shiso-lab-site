@@ -2,11 +2,8 @@ import { Client } from "@notionhq/client";
 import type {
   PageObjectResponse,
   QueryDatabaseResponse,
+  RichTextItemResponse,
 } from "@notionhq/client/build/src/api-endpoints";
-import { NotionToMarkdown } from "notion-to-md";
-import { remark } from "remark";
-import remarkGfm from "remark-gfm";
-import remarkHtml from "remark-html";
 
 export interface SiteSettings {
   hero_title: string;
@@ -35,8 +32,8 @@ const DEFAULTS: SiteSettings = {
   value_3_desc: "出典を明示し、行政資料としても引用できる正確さを保ちます。",
 };
 
-// Notion「サイト設定」データベースの各ページのタイトルと、この完全一致で対応付ける。
-// （タイトルだけで識別するので、追加のプロパティ設定が不要な最小構成にしている）
+// Notion「サイト設定」データベースの各行の「タイトル」プロパティと、この完全一致で対応付ける。
+// 実際の文章は「内容」プロパティ（テキスト）に書く。
 const LABELS: Record<keyof SiteSettings, string> = {
   hero_title: "トップ：見出し",
   hero_body: "トップ：本文",
@@ -48,12 +45,6 @@ const LABELS: Record<keyof SiteSettings, string> = {
   value_3_title: "大切にしていること③：タイトル",
   value_3_desc: "大切にしていること③：説明",
 };
-
-function stripOuterP(html: string): string {
-  const trimmed = html.trim();
-  const m = trimmed.match(/^<p>([\s\S]*)<\/p>$/);
-  return m ? m[1] : trimmed;
-}
 
 function getClient(): { notion: Client; databaseId: string } | null {
   const token = process.env.NOTION_TOKEN;
@@ -68,6 +59,32 @@ function getTitle(page: PageObjectResponse): string {
     return prop.title.map((t) => t.plain_text).join("").trim();
   }
   return "";
+}
+
+// Notionのリッチテキスト配列を、太字・斜体などの装飾を保ったまま簡易HTML化する
+function richTextToHtml(rich: RichTextItemResponse[]): string {
+  return rich
+    .map((t) => {
+      let text = t.plain_text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\n/g, "<br />");
+      if (t.annotations.code) text = `<code>${text}</code>`;
+      if (t.annotations.bold) text = `<b>${text}</b>`;
+      if (t.annotations.italic) text = `<i>${text}</i>`;
+      if (t.href) text = `<a href="${t.href}" target="_blank" rel="noopener">${text}</a>`;
+      return text;
+    })
+    .join("");
+}
+
+function getContent(page: PageObjectResponse): string | null {
+  const prop = page.properties["内容"];
+  if (prop?.type === "rich_text" && prop.rich_text.length > 0) {
+    return richTextToHtml(prop.rich_text);
+  }
+  return null;
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
@@ -92,20 +109,13 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     if (title) byLabel.set(title, page);
   }
 
-  const n2m = new NotionToMarkdown({ notionClient: notion });
   const settings: SiteSettings = { ...DEFAULTS };
-
-  await Promise.all(
-    (Object.keys(LABELS) as (keyof SiteSettings)[]).map(async (key) => {
-      const page = byLabel.get(LABELS[key]);
-      if (!page) return;
-      const mdBlocks = await n2m.pageToMarkdown(page.id);
-      const markdown = n2m.toMarkdownString(mdBlocks).parent;
-      if (!markdown.trim()) return;
-      const processed = await remark().use(remarkGfm).use(remarkHtml).process(markdown);
-      settings[key] = stripOuterP(processed.toString());
-    })
-  );
+  for (const key of Object.keys(LABELS) as (keyof SiteSettings)[]) {
+    const page = byLabel.get(LABELS[key]);
+    if (!page) continue;
+    const content = getContent(page);
+    if (content) settings[key] = content;
+  }
 
   return settings;
 }
