@@ -1,17 +1,24 @@
 import ftplib
 import os
 import sys
+import tempfile
 import time
+from datetime import datetime, timezone
 
 HOST = os.environ["FTP_HOST"]
 USER = os.environ["FTP_USER"]
 PASSWORD = os.environ["FTP_PASSWORD"]
 LOCAL_ROOT = os.environ.get("LOCAL_ROOT", "out")
 
-# 元からサーバーにある、このサイトのビルドとは無関係のフォルダ。触らない。
-KEEP = {"wordpress", "images"}
-
 MAX_RETRIES = 5
+KEEP_RELEASES = 2
+
+HTACCESS_TEMPLATE = """RewriteEngine On
+RewriteCond %{{REQUEST_URI}} !^/releases/
+RewriteCond %{{REQUEST_URI}} !^/wordpress/
+RewriteCond %{{REQUEST_URI}} !^/images/
+RewriteRule ^(.*)$ /releases/{release_id}/$1 [L]
+"""
 
 
 def connect() -> ftplib.FTP_TLS:
@@ -79,6 +86,7 @@ class Uploader:
         mkd_safe(self.ftp, path)
 
     def upload_dir(self, local_dir: str, remote_dir: str):
+        self.mkd_safe(remote_dir)
         for entry in sorted(os.listdir(local_dir)):
             if entry == ".DS_Store":
                 continue
@@ -98,26 +106,39 @@ class Uploader:
 
 
 def main():
-    ftp = connect()
+    release_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    release_path = f"releases/{release_id}"
 
-    print("--- clearing previous site build (keeping wordpress/, images/) ---")
-    for name in ftp.nlst("."):
-        base = name.rsplit("/", 1)[-1]
-        if base in (".", "..") or base in KEEP:
-            continue
-        try:
-            ftp.delete(base)
-            print(f"deleted file: {base}")
-        except ftplib.error_perm:
-            rm_recursive(ftp, base)
-            print(f"removed dir: {base}")
-    ftp.quit()
-
-    print("--- uploading new site ---")
+    print(f"--- uploading new release to {release_path} (live site untouched) ---")
     uploader = Uploader()
-    uploader.upload_dir(LOCAL_ROOT, "")
+    uploader.mkd_safe("releases")
+    uploader.upload_dir(LOCAL_ROOT, release_path)
     uploader.close()
 
+    print("--- switching live site (atomic .htaccess swap) ---")
+    htaccess_content = HTACCESS_TEMPLATE.format(release_id=release_id)
+    ftp = connect()
+    with tempfile.NamedTemporaryFile("w", suffix=".htaccess", delete=False) as f:
+        f.write(htaccess_content)
+        tmp_path = f.name
+    try:
+        with open(tmp_path, "rb") as f:
+            ftp.storbinary("STOR .htaccess", f)
+    finally:
+        os.unlink(tmp_path)
+    print(f"switched live site to {release_path}")
+
+    print("--- cleaning up old releases (keeping newest "
+          f"{KEEP_RELEASES}) ---")
+    names = sorted(
+        n.rsplit("/", 1)[-1] for n in ftp.nlst("releases")
+        if n.rsplit("/", 1)[-1] not in (".", "..")
+    )
+    for name in names[:-KEEP_RELEASES] if len(names) > KEEP_RELEASES else []:
+        rm_recursive(ftp, f"releases/{name}")
+        print(f"removed old release: {name}")
+
+    ftp.quit()
     print("--- done ---")
 
 
